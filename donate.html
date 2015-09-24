@@ -1,0 +1,338 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>computermouth</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" media="screen">
+ 
+	<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+	<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+	<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+	<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+	<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+	<link rel="manifest" href="/favicons/manifest.json">
+	<link rel="shortcut icon" href="/favicons/favicon.ico">
+	<meta name="msapplication-TileColor" content="#00aba9">
+	<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+	<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+	<meta name="theme-color" content="#ffffff">
+  </head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <body>
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">computermouth</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+			<li>
+				<a href="index.html">HOME</a>
+			</li>
+			<li>
+				<a href="projects.html">PROJECTS</a>
+			</li>
+			<li>
+				<a href="tutorials.html">TUTORIALS</a>
+			</li>
+			<li class="active">
+				<a href="donate.html">DONATE</a>
+			</li>
+			<li>
+				<a href="whois.html">WHOIS</a>
+			</li>
+		  </ul>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>./donate</h1>
+      </div>
+    </div>
+
+    <div class="container">
+		<p>
+			<p><img src="faenza/wxbanker.svg" class="img-responsive" alt="Debian Icon"></p>
+			<h1 id="type">Donate</h1>
+			<div class="row">
+				<div class="col-md-6">
+					<p>Well hey, thanks for your interest!</p>
+					<p>If you feel like making a donation, processing is done through <a href="https://stripe.com">Stripe</a>. All transactions are fully encrypted by SSL/TLS (just check your browsers address bar for the little lock) and email reciepts are automatic. No information will remain on this server. All personal information is forwarded directly to Stripe's API.</p>
+					<p>Source code for this payment service is also available on Github. (spoiler alert: it's just fcgi and libcurl)</p>
+					<a class="btn btn-primary" href="https://crunchbangplusplus.org" role="button">Github &raquo;</a>
+				</div>
+				<div class="col-md-6">
+					<div class="well bs-component">
+						<form id="donate" class="form-horizontal">
+							<fieldset>
+	<!--
+							<label for="inputEmail" class="sr-only">Email address</label>
+							<input name="uName" type="text" id="inputEmail" class="form-control" placeholder="Email address" required>
+							<label for="inputPassword" class="sr-only">Password</label>
+							<input name="passH" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+							<button class="btn btn-primary btn-block" type="submit">Donate</button>
+	-->
+								<legend>Particulars</legend>
+								<div class="form-group">
+									<label for="inputEmail" class="col-lg-2 control-label">Email</label>
+									<div class="col-lg-10">
+										<input name="email" class="form-control" id="inputEmail" placeholder="Email" type="text" required>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inputCard" class="col-lg-2 control-label">Card #</label>
+									<div class="col-lg-10">
+										<input name="cardN" class="form-control" id="inputCard" placeholder="Card #" type="text" required>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inputMonth" class="col-lg-2 control-label">Exp. Month</label>
+									<div class="col-lg-7"></div>
+									<div class="col-lg-3">
+										<input name="mo" class="form-control" id="inputMonth" placeholder="##" type="text" required>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inputYear" class="col-lg-2 control-label">Exp. Year</label>
+									<div class="col-lg-7"></div>
+									<div class="col-lg-3">
+										<input name="year" class="form-control" id="inputYear" placeholder="####" type="text" required>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inputCVC" class="col-lg-2 control-label">CVC</label>
+									<div class="col-lg-7"></div>
+									<div class="col-lg-3">
+										<input name="cv" class="form-control" id="inputCVC" placeholder="###" type="text" required>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inputCur" class="col-lg-2 control-label">Currency</label>
+									<div class="col-lg-10">
+										<select name="cur" class="form-control" id="inputCur" required>
+											<option>usd</option>
+											<option>cad</option>
+											<option>gbp</option>
+											<option>eur</option>
+											<option>aud</option>
+											<option>aed</option>
+											<option>afn</option>
+											<option>all</option>
+											<option>amd</option>
+											<option>ang</option>
+											<option>aoa</option>
+											<option>ars</option>
+											<option>awg</option>
+											<option>azn</option>
+											<option>bam</option>
+											<option>bbd</option>
+											<option>bdt</option>
+											<option>bgn</option>
+											<option>bif</option>
+											<option>bmd</option>
+											<option>bnd</option>
+											<option>bob</option>
+											<option>brl</option>
+											<option>bsd</option>
+											<option>bwp</option>
+											<option>bzd</option>
+											<option>cdf</option>
+											<option>chf</option>
+											<option>clp</option>
+											<option>cny</option>
+											<option>cop</option>
+											<option>cny</option>
+											<option>cop</option>
+											<option>crc</option>
+											<option>cve</option>
+											<option>czk</option>
+											<option>djf</option>
+											<option>dkk</option>
+											<option>dop</option>
+											<option>dzd</option>
+											<option>egp</option>
+											<option>etb</option>
+											<option>fjd</option>
+											<option>fkp</option>
+											<option>gel</option>
+											<option>gip</option>
+											<option>gmd</option>
+											<option>gnf</option>
+											<option>gtq</option>
+											<option>gyd</option>
+											<option>hkd</option>
+											<option>hnl</option>
+											<option>hrk</option>
+											<option>htg</option>
+											<option>huf</option>
+											<option>idr</option>
+											<option>ils</option>
+											<option>inr</option>
+											<option>isk</option>
+											<option>jmd</option>
+											<option>jpy</option>
+											<option>kes</option>
+											<option>kgs</option>
+											<option>khr</option>
+											<option>kmf</option>
+											<option>krw</option>
+											<option>kyd</option>
+											<option>kzt</option>
+											<option>lak</option>
+											<option>lbp</option>
+											<option>lkr</option>
+											<option>lrd</option>
+											<option>lsl</option>
+											<option>mad</option>
+											<option>mdl</option>
+											<option>mga</option>
+											<option>mkd</option>
+											<option>mnt</option>
+											<option>mop</option>
+											<option>mro</option>
+											<option>mur</option>
+											<option>mvr</option>
+											<option>mwk</option>
+											<option>mxn</option>
+											<option>myr</option>
+											<option>mzn</option>
+											<option>nad</option>
+											<option>ngn</option>
+											<option>nio</option>
+											<option>nok</option>
+											<option>npr</option>
+											<option>nzd</option>
+											<option>pab</option>
+											<option>pen</option>
+											<option>pgk</option>
+											<option>php</option>
+											<option>pkr</option>
+											<option>pln</option>
+											<option>pyg</option>
+											<option>qar</option>
+											<option>ron</option>
+											<option>rsd</option>
+											<option>rub</option>
+											<option>rwf</option>
+											<option>sar</option>
+											<option>sbd</option>
+											<option>scr</option>
+											<option>sek</option>
+											<option>sgd</option>
+											<option>shp</option>
+											<option>sll</option>
+											<option>sos</option>
+											<option>srd</option>
+											<option>std</option>
+											<option>svc</option>
+											<option>szl</option>
+											<option>thp</option>
+											<option>tjs</option>
+											<option>top</option>
+											<option>try</option>
+											<option>ttd</option>
+											<option>twd</option>
+											<option>tzs</option>
+											<option>uah</option>
+											<option>ugx</option>
+											<option>uyu</option>
+											<option>uzs</option>
+											<option>vnd</option>
+											<option>vuv</option>
+											<option>wst</option>
+											<option>xaf</option>
+											<option>xcd</option>
+											<option>xof</option>
+											<option>xpf</option>
+											<option>yer</option>
+											<option>zar</option>
+											<option>zmw</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-2 control-label">Amount</label>
+									<div class="col-lg-10">
+										<div class="input-group">
+											<span class="input-group-addon">$</span>
+											<input name="amount" id="inputAmount" class="form-control" type="text" required>
+											<span class="input-group-btn">
+												<button class="btn btn-default" type="button">.00</button>
+											</span>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-lg-10 col-lg-offset-2">
+										<button type="reset" class="btn btn-default">Cancel</button>
+										<button type="submit" class="btn btn-primary">Submit</button>
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					<p id="displayURL"></p>
+
+					<script>
+						$(document).ready(function () {
+							var form = document.getElementById("donate");
+							$(form).submit(function () {
+								var domain = "stripe/?";
+								var data = $(this).serialize();
+								var termStr = "+"
+
+								document.getElementById("displayURL").innerHTML = "Starting transaction, do not reload page";
+								
+								window.open(domain + data + termStr, "_self");
+
+								return false;
+							});
+						});
+					</script>
+					
+					</div>
+				</div>
+			</div>
+	    </p>
+
+
+
+      <hr>
+
+      <footer>
+        <p class="pull-left"><a href="http://www.zlib.net/zlib_license.html">zlib</a> Ben Young 2015</p>
+        <div class="pull-right">
+			<ul class="list-inline">
+				<li>Thanks to:</li>
+				<li><a href="https://www.debian.org">Debian</a></li>
+				<li><a href="https://www.digitalocean.com/?refcode=fa0d7b3cdac5">Digital Ocean</a></li>
+			</ul>
+		</div>
+      </footer>
+    </div> <!-- /container -->
+
+
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
