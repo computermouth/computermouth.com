@@ -1,0 +1,287 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>computermouth</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" media="screen">
+
+		<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+		<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+		<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+		<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+		<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+		<link rel="manifest" href="/favicons/manifest.json">
+		<link rel="shortcut icon" href="/favicons/favicon.ico">
+		<meta name="msapplication-TileColor" content="#00aba9">
+		<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+		<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+		<meta name="theme-color" content="#ffffff">
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-68085718-1', 'auto');
+		  ga('send', 'pageview');
+		</script>
+	</head>
+
+	<body>
+
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="index.html">computermouth</a>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="../index.html">HOME</a>
+						</li>
+						<li>
+							<a href="../projects.html">PROJECTS</a>
+						</li>
+						<li class="active">
+							<a href="../tutorials.html">TUTORIALS</a>
+						</li>
+						<li>
+							<a href="../donate.html">DONATE</a>
+						</li>
+						<li>
+							<a href="../whois.html">WHOIS</a>
+						</li>
+					</ul>
+				</div><!--/.navbar-collapse -->
+			</div>
+		</nav>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+		<div class="jumbotron">
+			<div class="container">
+				<h1>./tutorials/simple-cdd</h1>
+			</div>
+		</div>
+
+		<div class="container">
+
+			<div class="row">
+				<div class="col-md-12">
+					<h1><img src="../faenza/debian.svg" class="img-responsive" alt="Debian Icon"></h1>
+					<h2>Building a custom Debian netinstall disc</h2>
+					<div class="well">
+						<p>Sometimes throughout my distro-hopping search for the perfect Linux distro I'd get aggravated at how much I'd have to customize in order to finally feel comfortable. Luckily, if Debian's your cup of tea, there's a pretty straightforward way to create a customized .iso with any set of packages, configs, and themeing you like. Using a program called Simple-CDD.</p>
+						<p><a href="https://wiki.debian.org/Simple-CDD">Simple-CDD</a> actually really only customizes the DebianInstaller itself, but some of the settings you can manipulate will allow you to create a disc that, by default, will install your custom packages, use your custom repo, and can even set default options for the choices that you'd normally make while using the stock installer.</p>
+						<p>The following also describes the exact process used to generate the .iso for <a href="https://crunchbangplusplus.org/">#!++</a>.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<h2>Setup</h2>
+					<p>So let's get right to it. Step 1: crack open your terminal, upgrade all the things.</p>
+					<p><pre>$ sudo apt-get update && sudo apt-get upgrade</pre></p>
+					<p>Next install simple-cdd:</p>
+					<p><pre>$ sudo apt-get install simple-cdd</pre></p>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-12">
+					<h2>Vanilla Build</h2>
+					<p>Believe it or not, you're now ready to build a vanilla netinstall disc! So let's go ahead and test it now. This'll make sure that if you have any problems later, it's an issue with the configuration you've written, not a problem with simple-cdd or its default configs.</p>
+					<p>(We're going to be making a bit of a mess, file-system-wise, do yourself a favor and make a new folder somewhere to keep everything in)</p>
+					<p><pre>$ mkdir customdeb && cd customdeb</pre></p>
+					<p>Start the vanilla build:</p>
+					<p><pre>$ build-simple-cdd</pre></p>
+					<p>Simple-CDD will start pulling in a bare minimum set of packages from whatever repositories are in your 'sources.list'. Take a minute, have a stretch; the process will take a few minutes (obviously depending on your bandwidth and the quality of the mirror you're using). Lastly, don't worry if you see a bunch of WARNING messages come up during the build, it's happened on every build I've run.</p>
+					<p>At the end of the process you should see a few lines about xorriso creating the final image:</p>
+					<p>
+<pre>...
+xorriso : UPDATE :  8.94% done
+xorriso : UPDATE :  26.82% done
+xorriso : UPDATE :  35.75% done
+...
+</pre>				</p>
+					<p>If all went well, you'll have a brand spanking new .iso at 'customdeb/images/debian-8.X-yourarchitecture-CD-1.iso'. NOTE: <a class="text-warning">Simple-CDD is always going to build a disc for whatever platform you're on when you're building.</a> Since I'm on a 64-bit install, it built a 64-bit disc. If I were on a 32-bit install, it would have built a 32-bit disc. Though I haven't tested it, I would assume this process on a non-PAE install would create a non-PAE image.</p>
+					<p>If all didn't go well (you were met with errors, or the '/images' directory is missing), there's a few things you can try. 1: Check your internet connection, a spotty connection can easily foil the build. 2: Check your mirror. While alternative mirrors can sometimes offer faster download speeds, I've personally found them to be less reliable than Debian's ftp:// mirrors. 3: Simply try it again after clearing out your working directory.</p>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-12">
+					<h2>Vanilla Test</h2>
+					<p>Cool, so we have an image, now what? Test it!</p>
+					<p>While, sure, you could go ahead and wipe your current system or your older junker laptop... Let's just grab Virtualbox. If you're not familiar with Virtualbox, there's plenty of documentation out there, get to reading. Otherwise:</p>
+					<p><pre>$ sudo apt-get install virtualbox</pre></p>
+					<p>Start virtualbox once it's installed, create a new machine, give it a bit of RAM (512MB would even be overkill), create a virtual hard drive (5GB will probably do if you're short on storage), go into Settings>Storage>CD and mount your .iso to it. Hit OK and start the VM, it'll automatically boot to the disc and proceed with the old familiar install.</p>
+					<p>While we're waiting, let's talk about netinstalls. What this disc contains is essentially the kernel, debian installer, and handful of packages. Netinstalls are meant to be super tiny in size, and then upon install, grab the rest of the packages it needs(or updated versions of the packages on the disc) from a Debian repo and install those too.</p>
+					<p>Done installing? Notice anything weird? You might not if you typically avoid the tty/terminal interface. See how it greets you with 'unnasigned login:'? That's because the machine was never given a hostname during the install. It's not your fault, it's just the default config for simple-cdd doing it's job. Go ahead and log in with the (non-root)user credentials you set during the install. Type 'ls' and hit enter. 
+					That's a list of all the files in your /home/$user/ directory: nothing! "But this is normally where 'Documents' and 'Pictures' and stuff is, right?" Indeed. But with a bare minimum install like this, there's nothing in your /etc/skel directory to create those files(we'll get to this in a minute).
+					</p>
+					<p>Regardless of how barren it is, you've got yourself a working install. Now let's get to the 'custom' bit.</p>
+				</div>
+			</div>
+				
+			<div class="row">
+				<div class="col-md-12">
+					<h2>Customizing Test</h2>
+					<p>As we saw before, simple-cdd made a few changes to the installer that differ from the netinstall disc that you would get straight from Debian. Those changes come from configuration files inside '/usr/share/simple-cdd/profiles'. The package comes with 5 prebuilt profiles: default, ltsp, router, test, and x-basic. The default profile is always applied to your build, no matter what. If you're curious, have a go at building the disc using the x-basic profile:</p>
+					<p><pre>$ build-simple-cdd -p x-basic</pre></p>
+					<p>This will go through the whole build process again, it'll automatically grab the default configuration, and then add the x-basic configuration on top of it. x-basic only has two files, x-basic.description and x-basic.packages. x-basic.packages includes a small list of older packages to give you a light functional gui setup on top of what the default profile provided. You _could_ just look at those pre-made profiles and get a pretty good idea of what's going on, but lets have a closer look at what each one does.</p>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-12">
+					<h2>Custom Profiles</h2>
+					<p>First, lets make a folder inside our build directory to put our custom profile configurations in:</p>
+					<p><pre>$ mkdir profiles</pre></p>
+					<p>And copy the default profile configuration files to that folder:</p>
+					<p><pre>$ cp /usr/share/simple-cdd/profiles/default* /home/$USER/customdeb/profiles/</pre></p>
+					<p>Open your profile folder and you'll see the four files that set the defaults:
+						<ul>
+							<li><strong>default.downloads</strong> -- A miscellaneous package list.</li>
+							<li><strong>default.packages</strong>  -- Your main package list. Put your gui applications, desktop-env, etc. in here.</li>
+							<li><strong>default.preseed</strong>   -- Preseeds are default values for variables in the installer.</li>
+							<li><strong>default.udebs</strong>     -- udebs are special Debian packages used by or made available to the installer.</li>
+						</ul>
+					</p>
+					<p>The default.downloads file contains a few crucial items that wouldn't otherwise be added to the disc. For example, <strong>grub-pc</strong> and <strong>grub-efi</strong> provide your bootloader(s). But since nothing in the default.packages file actually depends on them, and they're not built into the installer, default.downloads make sure they're still there. Everything in default.downloads is important, so don't remove any of them (from the original file in /usr/share/simple-cdd/profiles), but it's mostly for low-level OS stuff and we won't be doing any customizing of that here. So let's go ahead and get rid of the new file:</p>
+					<p><pre>$ cd profiles
+$ rm default.downloads</pre></p>
+					<p>While we're here, let's rename our config files:</p>
+					<p><pre>$ mv default.packages custom.packages
+$ mv default.preseed custom.preseed
+$ mv default.udebs custom.udebs</pre></p>
+					<p>Since the default profile is automatically applied to each build, we won't need any of the content in these files. So empty their contents in whatever manner you like, here's a terminal command:</p>
+					<p><pre>$ rm custom.* && touch custom.packages custom.preseed custom.udebs</pre></p>
+					<p>Before customizing the new profile, have a look at default.preseed:</p>
+					<p><pre>$ nano /usr/share/simple-cdd/profiles/default.preseed</pre></p>
+					<p>It's got some odd defaults; like line 79 automatically choosing a network interface. Lines 84 and 85 are what set our first build test install's domain and hostname to 'unassigned'. Line 103 takes some liberties with the partition type. 118 will skip asking if you want to mount directories like /home to another partition/drive. 132 and 135 make some presumptions about potentially wiping the MBR with grub regardless of what's currently there. Finally: 174, 176, and 178 skip some of the default Debian installer dialogue.</p>
+					<p>You can keep these defaults if you're fine with those kinds of settings, if not, be sure to back up the default profile before editing: </p>
+					<p><pre>$ cd /usr/share/simple-cdd/profiles
+$ sudo mkdir backup
+$ sudo cp default* backup/</pre></p>
+					<p>Now that you've got it all backed up, open default.preseed with sudo and comment out the lines you don't like:</p>
+					<p><pre>$ sudo nano default.preseed</pre></p>
+					<p>If you did make changes and you want to double check that everything works the way you expect it to, pop back to your working directory and run through another build.</p>
+					<p>Anyways, now let's get to the good stuff. If you're not back in your build folder, get there and open up your custom preseed"</p>
+					<p><pre>$ cd ~/customdeb/profiles
+$ nano custom.preseed</pre></p>
+					<p>I like sudo. I rarely/never use 'su' or my actual root account. During a Debian install, you can actually skip past entering credentials for root. The installer sees this, figures you'll use sudo, and sets your permissions accordingly. So I'll add a comment and the Debian installer setting to just turn off that prompt:</p>
+					<p><pre>##skip root creation
+d-i passwd/root-login boolean false</pre></p>
+					<p>Some explanation:</p>
+					<p>
+						<ul>
+							<li><strong>d-i</strong> -- Debian Installer setting</li>
+							<li><strong>passwd</strong> -- Section name</li>
+							<li><strong>root-login</strong> -- Section item</li>
+							<li><strong>boolean</strong> -- Setting type</li>
+							<li><strong>false</strong> -- Setting value</li>
+						</ul>
+					</p>
+					<p>I'm also going to my sources to default to using the non-free and contrib repos:</p>
+					<p><pre>##use non-free and contrib
+d-i apt-setup/non-free boolean true
+d-i apt-setup/contrib boolean true</pre></p>
+					<p>There's so much stuff to preseed, I could write a book on it. Luckily, Debian already has. Check out <a href="https://www.debian.org/releases/stable/i386/apb.html">this appendix</a> for detailed information on what and how to preseed different settings. With CrunchBang Plus Plus I preseeded our own signed apt repository(that I set up using <a href="https://www.digitalocean.com/community/tutorials/how-to-use-reprepro-for-a-secure-package-repository-on-ubuntu-14-04">this awesome guide on Digital Ocean</a>) to be available during the install process and thus added to the sources.list, and set up some preseed/late_command lines to change a few configuration files at the end of the install.</p>
+					<p>Save your preseed file and exit. 1 config down, two to go. Let's get to the package list:</p>
+					<p>Here's where things are going to start getting interesting. You'll need to know what your packages provide. Some desktop environment packages(like xfce4 and mate-desktop-environment-extras) come with dependencies on their preferred login/display/session/file/network managers, others only install the bare minimum software required to get the specified application running(like openbox and jwm). This guide is meant to be as noob-friendly as possible, but there's no getting around it: you need to know what your OS needs. If you're feeling overwhelmed: A search engine, manpages, the Debian repo web frontend, and trial/error are your best friends here. Now, let's add some packages:</p>
+					<p><pre>nano custom.packages</pre></p>
+					<p>Let's just start with a bare bare bare minimum of what you'd see in #!/#!++:</p>
+					<p><pre>xorg
+openbox
+slim
+terminator
+thunar</pre></p>
+					<p>And we'll leave it at that for now, save and exit the file. Lastly, crack open custom.udebs.</p>
+					<p><pre>$nano custom.udebs</pre></p>
+					<p>udebs, or micro-debs, are smaller packages intended for use during the Debian install. With #!++ I used the udeb configuration to add a pile of non-free drivers to the installer, since it's a netinstaller, the higher the chance of a successful network connection - the better. Here's what's in the CBPP.udebs file, go ahead and add these to custom.udebs:</p>
+					<p><pre>firmware-realtek
+firmware-atheros
+firmware-brcm80211
+firmware-ipw2x00
+firmware-iwlwifi
+firmware-linux
+firmware-ralink
+firmware-ti-connectivity</pre></p>
+					<p>firmware-linux is a metapackage that depends on firmware-linux-free and firmware-linux-nonfree, which are themselves large collections of binary drivers. The others are more specific collections of drivers by manufacturer.</p>
+					<p>It's almost time to build with the custom profile. First, let's head back up to the root of our build folder, and create a .conf file to avoid having to type out a huge terminal command to properly build with our profile:</p>
+					<p><pre>cd ..
+nano custom.conf</pre></p>
+					<p>custom.conf is going to basically take place of some of the flags you can pass to build-simple-cdd, add the following lines:</p>
+					<p><pre>profiles="custom"
+auto_profiles="custom"
+dist="stable"
+export CONTRIB=1
+export NONFREE=1
+mirror_components="main contrib non-free"</pre></p>
+					<p>Save and exit, here's some definitions:
+						<ul>
+							<li><strong>profiles=</strong> -- Profiles to include (you can have several on a disc).</li>
+							<li><strong>auto_profiles=</strong> -- Profile to automatically select during installation.</li>
+							<li><strong>dist=</strong> -- Version of Debian to base your disc on.</li>
+							<li><strong>export</strong> -- Constant variables set to make sure the installer has access to those repositories.</li>
+							<li><strong>mirror_components</strong> -- Backup in case the environment variables don't catch on.</li>
+						</ul>
+					</p>
+					<p>Now, it's ready to build! (if you've got old images/ and tmp/ folders in your build directory, go ahead and delete them)</p>
+					<p><pre>$ build-simple-cdd --conf ./custom.conf</pre></p>
+					<p>Settle in for a longer build process than before. Obviously the more packages you add the longer it'll take. My image with the above configuration is ~250MB.</p>
+					<div class="row">
+						<div class="col-md-6">
+							<p>Once it's done, go ahead and toss the image into Virtualbox and see what you've created (checking along the way that your preseed settings are manifesting appropriately). Yes, a little empty, but certainly starting to look familiar.</p>
+							<p>But where's the list of applications? Why is the theme so boring? Is that a missing icon? Indeed! Welcome to the defaults. Package maintainers aren't defaultly charged with the task of making your programs pretty and full-featured. Some finer touches are as simple as adding more packages, like gtk2/3 themes(<a href="https://packages.debian.org/jessie/murrine-themes">murrine-themes</a> or <a href="https://packages.debian.org/jessie/gtk2-engines-xfce">gtk2-engines-xfce</a>) and iconset packages like <a href="https://packages.debian.org/jessie/faenza-icon-theme">faenza-icon-theme</a>. But even installing them will only make them available, not set them as the default. So the next section here is on what most applications use to set defaults in the userspace: <strong>dotfiles</strong>.</p>
+						</div>
+						<div class="col-md-6">
+							<a href="../images/build1.png"><img src="../images/build1.png" class="img-responsive" alt="build1"></a>
+						</div>
+					</div>
+				</div>
+			</div>		
+
+			<hr>
+
+			<footer>
+				<div class="pull-left">
+					<ul class="list-inline">
+						<li><a href="http://www.zlib.net/zlib_license.html">zlib</a></li>
+						<li>Ben Young 2015</li>
+						<li><a href="https://github.com/computermouth/computermouth.com">Site Source</a></li>
+					</ul>
+				</div>
+				<div class="pull-right">
+					<ul class="list-inline">
+						<li>Thanks to:</li>
+						<li><a href="https://www.debian.org">Debian</a></li>
+						<li><a href="https://www.digitalocean.com/?refcode=fa0d7b3cdac5">Digital Ocean</a></li>
+					</ul>
+				</div>
+			</footer>
+		</div> <!-- /container -->
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="../bootstrap/js/bootstrap.min.js"></script>
+	</body>
+</html>
