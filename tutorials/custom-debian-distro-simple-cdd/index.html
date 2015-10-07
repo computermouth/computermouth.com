@@ -298,7 +298,7 @@ mirror_components="main contrib non-free"</pre></p>
 					<p>Making your own package in Debian is actually pretty easy, especially when it's contents are just a couple text files. First, install dh_make:</p>
 					<p><pre>$ sudo apt-get install dh-make</pre></p>
 					<p>Once that's done, make a new folder to put your custom package in. I'd suggest your build directory:</p>
-					<p><pre>$ cd customdeb && mkdir customdebs && cd customdebs</pre></p>
+					<p><pre>$ cd customdeb && mkdir custompkg && cd custompkg</pre></p>
 					<p>Debian packages are essentially just compressed folders with the package contents and a few apt/dpkg configuration files. Create a new folder here too, specifically for your new package:</p>
 					<p><pre>$ mkdir testpackage-0.0.1</pre></p>
 					<p>The version number is required for this process, but the format isn't. It could be one number, or an alpha-numeric string, whatever you fancy. Open your new folder and initialize the package with dh_make:</p>
@@ -314,11 +314,66 @@ mirror_components="main contrib non-free"</pre></p>
 							<li><strong>copyright</strong> -- Your license of choice.</li>
 						</ul>
 					</p>
-					<p>These templates are pretty self explanatory, if you'd like to see an example, check out <a href="https://github.com/CBPP/cbpp-configs/tree/master/cbpp-configs/debian">cbpp-configs</a>(which aptly contains all the dotfiles for #!++)</p>
-					<p></p>
+					<p>These templates are pretty self explanatory, if you'd like to see an example, check out <a href="https://github.com/CBPP/cbpp-configs/tree/master/cbpp-configs/debian">cbpp-configs</a>(which aptly contains all the dotfiles for #!++).</p>
+					<p>There is one more file that needs to be created here to give the package instructions on what to do with its contents. So create a file, named after the package(without the version number), and give it a '.install' extension:</p>
+					<p><pre>$ nano testpackage.install</pre></p>
+					<p>And enter the following:</p>
+					<p><pre>data/* /</pre></p>
+					<p>Save and exit, we'll go over this in a second, but before that, create the data folder at the same level as the 'debian' folder:</p>
+					<p><pre>$ cd .. && mkdir data</pre></p>
+					<p>So essentially what this means is that when the package is installed, it'll copy the contents of the data folder to the root of the file system. So if we put a file 'test' inside 'data/etc/', it'll then be in the host machine's '/etc/' directory. But we're going for dotfiles here, so create folders inside data to represent the location '/etc/skel/'.</p>
+					<p><pre>$ cd data && mkdir etc && cd etc && mkdir skel && cd skel</pre></p>
+					<p>Now, everything created in here, after installation of the package, will be copied to every new user's '/home/' directory. We're going to make two configuration files, first:</p>
+					<p><pre>$ nano .nanorc</pre></p>
+					<p>Enter the following contents to enable autoindent in nano:</p>
+					<p><pre>set autoindent</pre></p>
+					<p>Save and exit, one down - one to go. Make a few directories(openbox's dotfiles live in /home/$USER/.config/openbox/) to put an openbox configuration file in:</p>
+					<p><pre>$ mkdir .config && cd .config && mkdir openbox && cd openbox</pre></p>
+					<p>Ok, a full openbox configuration uses multiple files, you can check out the ones we used for CBPP <a href="https://github.com/CBPP/cbpp-configs/tree/master/cbpp-configs/data/etc/skel/.config/openbox">here</a>. But let's just focus on the openbox layout file: </p>
+					<p><pre>$ nano menu.xml</pre></p>
+					<p>Enter the following text (click <a href="menu.xml">here for copy-able xml</a>): </p>
+					<p><a href="openbox.png"><img src="openbox.png" class="img-responsive" alt="openbox"></a></p>
+					<p>Save and exit, that should be enough to prove the point here. Let's build the package. Move back up to the root of your custom package folder('testpackage-0.0.1'), and run the following command to build the .deb:</p>
+					<p><pre>$ dpkg-buildpackage</pre></p>
+					<p>dpkg will check to make sure all your files are in order, compress the sources, and build the package. Pop up a directory and see what we have:</p>
+					<p><pre>$ cd .. && ls</pre></p>
+					<p>There's a few files here, important stuff is the distinction between these 2:
+						<ul>
+							<li><strong>testpackage_0.0.1.tar.xz</strong> -- A tarball of the source files we just built. Hang onto this, if you need to rebuild your package later for an update, extracting this and editing the few files inside is the easiest way to do so (just be sure to also update all version number notation everywhere it occurs, including the folder name).</li>
+							<li><strong>testpackage_0.0.1_all.deb</strong> -- Your fully built and installable package!</li>
+						</ul>
+					</p>
+					<p>Feel free to delete everything else. Before we move on, take a look at your .deb. Note the '_all' chunk in the filename. This means it's good for any architecture. It makes sense, it's just files. But if you get into making more advanced packages with dependencies and binaries/source files in them, be sure to keep an eye on what architecture you're building for.</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<h2>Adding custom .debs to the build</h2>
+					<p>You're almost done, this is the final section! Head back up one folder from where we built the package, so you're back in the root of the .iso build directory. Open the 'custom.conf':</p>
+					<p><pre>$ nano custom.conf</pre></p>
+					<p>Add the following to make sure simple-cdd can see your custom package(s):</p>
+					<p><pre>local_packages="./custompkg"</pre></p>
+					<p>This will make the build process aware of where to find the packages, but it still doesn't know what exactly it's looking for. Open the package list:</p>
+					<p><pre>$ nano profiles/custom.packages</pre></p>
+					<p>And add an entry for our new test package:</p>
+					<p><pre>testpackage</pre></p>
+					<p>Save and exit. Note: no version number, no architecture, etc., just what the package is provided as. And go ahead and run the build:</p>
+					<p><pre>$ build-simple-cdd --conf ./custom.conf</pre></p>
+					<p>Throw the new .iso into VirtualBox and install it, once your in, right click and you'll see your custom openbox menu!</p>
+					<p><a href="screenshot.png"><img src="screenshot.png" class="img-responsive" alt="screenshot"></a></p>
+					<p>Click on each of the items and make sure they work. While you've got your terminal open, create a new file with 'nano', hit tab, then enter. Boom, there's your autoindenting courtesy of your nano dotfile.</p>
 				</div>
 			</div>
 
+			<div class="row">
+				<div class="col-md-12">
+					<h2>That's it!</h2>
+					<p>From here, it's all about finding packages to handle your everyday functionality, and the configuration files that you can use to manage them.</p>
+					<p>If the whole process didn't work out quite well for you, check this github repo for the files I created for this tutorial. If you've found any issues absolutely submit a pull request or issue on the repo for this site's source.</p>
+					<p>Give me a buzz on <a href="https://twitter.com/computermouth">Twitter</a> if you've got any questions or just want to show off your rad new custom distro!</p>
+				</div>
+			</div>
+			
 			<hr>
 
 			<footer>
