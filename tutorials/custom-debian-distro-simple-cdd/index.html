@@ -332,7 +332,13 @@ mirror_components="main contrib non-free"</pre></p>
 					<p>Ok, a full openbox configuration uses multiple files, you can check out the ones we used for CBPP <a href="https://github.com/CBPP/cbpp-configs/tree/master/cbpp-configs/data/etc/skel/.config/openbox">here</a>. But let's just focus on the openbox layout file: </p>
 					<p><pre>$ nano menu.xml</pre></p>
 					<p>Enter the following text (click <a href="menu.xml">here for copy-able xml</a>): </p>
+				</div>
+				<div class="col-sm-3 text-center"></div>
+				<div class="col-sm-6 text-center">
 					<p><a href="openbox.png"><img src="openbox.png" class="img-responsive" alt="openbox"></a></p>
+				</div>
+				<div class="col-sm-3 text-center"></div>
+				<div class="col-md-12">
 					<p>Save and exit, that should be enough to prove the point here. Let's build the package. Move back up to the root of your custom package folder('testpackage-0.0.1'), and run the following command to build the .deb:</p>
 					<p><pre>$ dpkg-buildpackage</pre></p>
 					<p>dpkg will check to make sure all your files are in order, compress the sources, and build the package. Pop up a directory and see what we have:</p>
@@ -360,7 +366,13 @@ mirror_components="main contrib non-free"</pre></p>
 					<p>Save and exit. Note: no version number, no architecture, etc., just what the package is provided as. And go ahead and run the build:</p>
 					<p><pre>$ build-simple-cdd --conf ./custom.conf</pre></p>
 					<p>Throw the new .iso into VirtualBox and install it, once your in, right click and you'll see your custom openbox menu!</p>
+				</div>
+				<div class="col-sm-3 text-center"></div>
+				<div class="col-sm-6 text-center">
 					<p><a href="screenshot.png"><img src="screenshot.png" class="img-responsive" alt="screenshot"></a></p>
+				</div>
+				<div class="col-sm-3 text-center"></div>
+				<div class="col-md-12">
 					<p>Click on each of the items and make sure they work. While you've got your terminal open, create a new file with 'nano', hit tab, then enter. Boom, there's your autoindenting courtesy of your nano dotfile.</p>
 				</div>
 			</div>
